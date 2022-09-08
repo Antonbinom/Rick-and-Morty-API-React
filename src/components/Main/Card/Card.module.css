@@ -1,0 +1,33 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	max-width: 300px;
+	height: auto;
+	padding: 30px 20px;
+	background: tomato;
+	border-radius: 5px;
+}
+.section {
+	display: flex;
+	flex-direction: column;
+}
+
+.name {
+	display: inline-block;
+	width: max-content;
+	font-size: 21px;
+	font-weight: 700;
+}
+
+.name:hover{
+	text-decoration: underline;
+}
+
+img {
+	margin: 20px 0 10px;
+}
+
+.text {
+	display: inline-block;
+	width: 100%;
+}
