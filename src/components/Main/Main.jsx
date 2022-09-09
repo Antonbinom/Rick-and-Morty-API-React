@@ -1,16 +1,22 @@
 import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useParams} from 'react-router-dom';
 import {getCharacters} from '../../store/charactersSlice';
+import {getEpisodes} from '../../store/episodesSlice';
 import {Container} from '../Container/Container';
 import {Card} from './Card/Card';
 import style from './Main.module.css';
 
 export const Main = () => {
-	const {data, loading} = useSelector(state => state.characters);
-	// const {next} = useSelector(state => state.characters);
-	// if (loading === 'success') console.log(next);
+	const {characters, loading} = useSelector(state => state.characters);
 	const endList = useRef(null);
 	const dispatch = useDispatch();
+	console.log('useParams:', useParams());
+
+	if (loading === 'success') console.log(characters);
+	useEffect(() => {
+		dispatch(getEpisodes());
+	}, []);
 
 	useEffect(() => {
 		if (loading === 'loading') return;
@@ -25,22 +31,22 @@ export const Main = () => {
 		observer.observe(endList.current);
 	}, [endList.current]);
 
-	useEffect(() => {
-		// dispatch(getCharacters());
-	}, [dispatch]);
-
 	return (
 		<div className={style.main}>
 			<Container>
 				<ul className={style.list}>
 					{loading === 'success' &&
-						data.results.map(item => (
+						characters.map((item, index) => (
 							<Card
 								key={item.id}
 								name={item.name}
 								species={item.species}
 								location={item.location.name}
-								img={item.image} />
+								episodes={item.episode}
+								img={item.image}
+								id={item.id}
+							/>
+
 						))}
 					<li className={style.end} ref={endList} />
 				</ul>

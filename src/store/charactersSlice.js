@@ -6,33 +6,30 @@ export const getCharacters = createAsyncThunk(
 	'characters/getCharacters',
 	(character, {getState}) => {
 		const next = getState().characters.next;
-		console.log(next);
-		return axios(`${URI_API}character`)
-			.then(({data}) => data);
+
+		return axios(!next ? `${URI_API}character` : next)
+			.then(({data}) => data)
+			.catch((error) => ({error: error.toString()}));
 	}
 );
 
 const charactersSlice = createSlice({
 	name: 'characters',
 	initialState: {
-		data: {},
+		characters: [],
 		loading: '',
 		error: '',
 		next: '',
 	},
-	reducers: {
-		requestCharacters(state, action) {
-
-		}
-	},
+	reducers: {},
 	extraReducers: {
 		[getCharacters.pending]: (state) => {
 			state.loading = 'loading';
 		},
 		[getCharacters.fulfilled]: (state, action) => {
 			state.loading = 'success';
-			state.data = action.payload;
-			state.next = state.data.info.next;
+			state.characters = [...state.characters, ...action.payload.results];
+			state.next = action.payload.info.next;
 		},
 		[getCharacters.rejected]: (state) => {
 			state.loading = 'error';
