@@ -18,7 +18,7 @@ export const Character = () => {
 		<div className={style.wrapper}>
 			<div className={style.card}>
 				<h1 className={style.name}>{newCharacters.name}</h1>
-				<img src={newCharacters.image} alt="Character:{newCharacters.name}" />
+				<img className={style.image} src={newCharacters.image} alt="Character:{newCharacters.name}" />
 				<div className={style.info}>
 					<span className={style.text}>Species: {newCharacters.species}</span>
 					<span className={style.text}>Location: {newCharacters.location.name}</span>

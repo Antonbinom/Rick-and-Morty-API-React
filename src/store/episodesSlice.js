@@ -5,9 +5,11 @@ import {URI_API} from '../api/const';
 export const getEpisodes = createAsyncThunk(
 	'episodes/getEpisodes',
 	() =>
-		axios(`${URI_API}episode`)
-			.then(({data}) => data)
-			.catch((error) => ({error: error.toString()}))
+		Promise.all([1, 2, 3].map(id =>
+			axios(`${URI_API}episode?page=${id}`)
+				.then(({data}) => data.results.flat())
+				.catch((error) => ({error: error.toString()}))
+		))
 );
 
 const episodesSlice = createSlice({
@@ -16,7 +18,6 @@ const episodesSlice = createSlice({
 		episodes: [],
 		loading: '',
 		error: '',
-		next: '',
 	},
 	reducers: {},
 	extraReducers: {
@@ -25,12 +26,10 @@ const episodesSlice = createSlice({
 		},
 		[getEpisodes.fulfilled]: (state, action) => {
 			state.loading = 'success';
-			state.episodes = action.payload;
-			state.next = state.episodes.info.next;
+			state.episodes = action.payload.flat();
 		},
 		[getEpisodes.rejected]: (state) => {
 			state.loading = 'error';
-			state.holidays = {};
 		},
 	}
 });

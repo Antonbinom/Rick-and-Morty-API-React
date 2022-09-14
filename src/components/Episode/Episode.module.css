@@ -1,0 +1,45 @@
+.wrapper {
+	margin: 200px 0 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	max-width: 500px;
+	height: auto;
+	padding: 30px 20px;
+	background: tomato;
+	border-radius: 5px;
+}
+
+.name {
+	display: inline-block;
+	width: max-content;
+	font-size: 21px;
+	font-weight: 700;
+}
+
+.date {
+	display: inline-block;
+	width: 100%;
+}
+
+.list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.item {
+	max-width: 30%;
+}
+
+.link {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	line-height: 0;
+}

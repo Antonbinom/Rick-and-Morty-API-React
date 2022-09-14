@@ -25,11 +25,7 @@
 	font-weight: 700;
 }
 
-.name:hover{
-	text-decoration: underline;
-}
-
-img {
+.image {
 	margin: 20px 0 10px;
 }
 
